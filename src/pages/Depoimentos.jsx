@@ -1,22 +1,40 @@
 import React from "react";
+import { Link } from "react-router-dom"
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, {Navigation, Pagination, Virtual, EffectFade} from "swiper";
+import SwiperCore, {
+  Navigation,
+  Pagination,
+  Virtual,
+  EffectFade,
+} from "swiper";
 
+import BlankAvatar from "../images/blank-avatar.png";
+import "../css/depoimentos.css"
 import "swiper/swiper-bundle.css";
 
-SwiperCore.use([Navigation, Pagination, Virtual, EffectFade])
+SwiperCore.use([Navigation, Pagination, Virtual, EffectFade]);
 
 const Depoimentos = () => {
   let depoimentosComponents = [];
   for (let i = 0; i < 6; i++) {
     const depoimento = (
-      <SwiperSlide key={i} tag="article">
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi iste,
-          sunt obcaecati delectus nemo ipsa nostrum iure porro minima quidem non
-          adipisci tenetur dignissimos sit sequi possimus corrupti fugit
-          dolorum.
-        </p>
+      <SwiperSlide key={i} tag="li">
+        <article className="depoimento">
+          <header>
+            <figure>
+              <img src={BlankAvatar} width="32px" alt=""/>
+              <figcaption>
+                Lorem, ipsum.
+              </figcaption>
+            </figure>
+          </header>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi
+            iste, sunt obcaecati delectus nemo ipsa nostrum iure porro minima
+            quidem non adipisci tenetur dignissimos sit sequi possimus corrupti
+            fugit dolorum.
+          </p>
+        </article>
       </SwiperSlide>
     );
     depoimentosComponents.push(depoimento);
@@ -31,15 +49,24 @@ const Depoimentos = () => {
         spaceBetween={50}
         slidesPerView={1}
         tag="section"
+        wrapperTag="ul"
         navigation
         pagination
-        effect="fade"
-        Virtual
-        onSlideChange={() => console.log("slide change")}
+        virtual
+        onSlideChange={(swiper) => console.log(swiper)}
         onSwiper={(swiper) => console.log(swiper)}
       >
         {depoimentosComponents}
       </Swiper>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/jogo">
+              Continuar
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </section>
   );
 };

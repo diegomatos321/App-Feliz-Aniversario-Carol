@@ -17,12 +17,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.swiper-wrapper{
-  min-height: 50vh;
-  align-items: center;
-}
-
-.swiper-slide{
-  padding: 0 50px;
-}

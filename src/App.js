@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route} from "react-router-dom";
 import BoasVindas from "./pages/BoasVindas.jsx";
 import FelizAniversario from "./pages/FelizAniversario.jsx";
 import Depoimentos from "./pages/Depoimentos.jsx";
-// import Jogo from "./pages/Jogo.jsx";
+import Jogo from "./pages/Jogo.jsx";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
               <Depoimentos />
             </Route>
             <Route path="/jogo">
-              {/* <Jogo /> */}
+              <Jogo />
             </Route>
           </Switch>
         </BrowserRouter>
