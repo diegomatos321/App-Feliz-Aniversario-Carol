@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import interrocacao from "../images/interrogação.webp"
 
 const Card = ({
-  name,
+  id,
+  imagem,
   cartasSelecionadas,
   definirCartasSelecionadas,
   cartasCorretas,
@@ -9,10 +11,7 @@ const Card = ({
   // const [cardName, setCardName] = useState[pessoa];
   const [isFlip, setFlip] = useState(false);
   useEffect(() => {
-    if (
-      cartasSelecionadas.indexOf(name) >= 0 ||
-      cartasCorretas.indexOf(name) >= 0
-    ) {
+    if (cartasSelecionadas.indexOf(id) >= 0 || cartasCorretas.indexOf(id) >= 0) {
       setFlip(true);
       return;
     }
@@ -21,23 +20,22 @@ const Card = ({
   }, [cartasSelecionadas, cartasCorretas]);
 
   function handleClick(element) {
-    let carta = element.getAttribute("name");
+    let carta = element.getAttribute("id");
 
     definirCartasSelecionadas((currentState) => [...currentState, carta]);
   }
 
-  let classe;
-  isFlip ? (classe = "carta flip") : (classe = "carta");
+  let classeIsFlip = isFlip ? "flip" :  "";
+
+  let classeHide = isFlip ? "hide" :  "";
 
   return (
-    <div name={name} className={classe} onClick={(e) => handleClick(e.target)}>
-      <div className="back-face">
-        <p>Clique em Mim !</p>
+    <div id={id} className={`carta ${classeIsFlip}`} onClick={(e) => handleClick(e.target)}>
+      <div className={`back-face ${classeHide}`}>
+        <img src={interrocacao} height="100%" alt=""/>
       </div>
       <div className="front-face">
-        <header>
-          <h2>{name}</h2>
-        </header>
+        <img src={`${process.env.PUBLIC_URL}${imagem}`} height="100%" alt=""/>
       </div>
     </div>
   );

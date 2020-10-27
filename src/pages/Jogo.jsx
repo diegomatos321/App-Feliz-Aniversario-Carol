@@ -4,17 +4,7 @@ import "../css/jogo.css";
 import Card from "../components/Card.jsx";
 import VideoModal from "../components/VideoModal.jsx";
 
-let pessoas = [
-  "Diego",
-  "Pedro",
-  // "Arthur",
-  // "Carol",
-  // "Gabi",
-  // "Nicolas",
-  // "Bruno",
-  // "Paaauloooo",
-  // "Ana",
-];
+import pessoas from "../cartas.json"
 
 const JogoDaMemoria = () => {
   const [posicaoCartasDoJogo, definirPosicaoCartasDoJogo] = useState(pessoas);
@@ -23,13 +13,13 @@ const JogoDaMemoria = () => {
   const [cartasCorretas, definirCartasCorretas] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
-  const flipAnimationTime = 800; // Em milisegundos
+  const flipAnimationTime = 1000; // Em milisegundos
 
   useEffect(() => {
-    let dobroJogadores = posicaoCartasDoJogo.concat(pessoas);
+    let dobroCartas = posicaoCartasDoJogo.concat(posicaoCartasDoJogo);
 
-    shuffle(dobroJogadores);
-    definirPosicaoCartasDoJogo(dobroJogadores);
+    shuffle(dobroCartas);
+    definirPosicaoCartasDoJogo(dobroCartas);
   }, [hasShuffle]);
 
   useEffect(() => {
@@ -38,7 +28,7 @@ const JogoDaMemoria = () => {
 
       let pares = [carta, cartasSelecionadas[index + 1]];
       if (pares[1] === undefined) return;
-      if (pares[1] === carta || cartasCorretas.indexOf(carta) >= 0) {
+      if (pares[1] === carta || cartasCorretas.indexOf(carta) >= 0 || cartasCorretas.indexOf(pares[1]) >= 0) {
         definirCartasSelecionadas((currentState) =>
           currentState.filter((carta) => pares.indexOf(carta) === -1)
         );
@@ -101,26 +91,29 @@ const JogoDaMemoria = () => {
     setShuffle(true);
   }
 
-  let cartasComponents = posicaoCartasDoJogo.map((pessoa, index) => (
+  let cartasComponents = posicaoCartasDoJogo.map(({nome, imagem}, index) => (
     <Card
-      key={`${pessoa} ${index}`}
-      name={`${pessoa} ${index}`}
+      key={`${nome} ${index}`}
+      id={`${nome} ${index}`}
+      imagem={imagem}
       cartasSelecionadas={cartasSelecionadas}
       cartasCorretas={cartasCorretas}
       definirCartasSelecionadas={definirCartasSelecionadas}
     />
   ));
   return (
-    <section className="jogo">
-      <VideoModal show={showModal} onClose={() => setShowModal(false)} />
-      <header className="title">
-        <h1>Jogo dos Amigos !</h1>
-        <p>
-          <i>Encontre todos os pares de cartas iguais !</i>
-        </p>
-      </header>
-      <section className="tabuleiro">{cartasComponents}</section>
-    </section>
+    <main style={{minHeight:"100vh"}} className="content backgrond-red">
+      <section className="jogo">
+        <VideoModal show={showModal} onClose={() => setShowModal(false)} />
+        <header>
+          <h1 className="title">Jogo dos Amigos !</h1>
+          <p className="subtitle">
+            <i>Encontre todos os pares de cartas iguais !</i>
+          </p>
+        </header>
+        <section className="tabuleiro">{cartasComponents}</section>
+      </section>
+    </main>
   );
 };
 

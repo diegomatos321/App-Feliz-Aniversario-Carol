@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
-import VideoPlaceHolder from "../images/video-placeholder.jpg";
+import VideoPlaceHolder from "../images/video-placeholder.webp";
 import { FaTimesCircle } from "react-icons/fa";
 
 import "../css/modal.css";

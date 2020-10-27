@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom"
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
   Navigation,
@@ -8,66 +7,67 @@ import SwiperCore, {
   EffectFade,
 } from "swiper";
 
-import BlankAvatar from "../images/blank-avatar.png";
-import "../css/depoimentos.css"
+import "../css/depoimentos.css";
 import "swiper/swiper-bundle.css";
+
+import depoimentosDATA from "../depoimentos.json";
+import Footer from "../components/Footer.jsx";
 
 SwiperCore.use([Navigation, Pagination, Virtual, EffectFade]);
 
 const Depoimentos = () => {
-  let depoimentosComponents = [];
-  for (let i = 0; i < 6; i++) {
-    const depoimento = (
-      <SwiperSlide key={i} tag="li">
-        <article className="depoimento">
-          <header>
-            <figure>
-              <img src={BlankAvatar} width="32px" alt=""/>
-              <figcaption>
-                Lorem, ipsum.
-              </figcaption>
-            </figure>
-          </header>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi
-            iste, sunt obcaecati delectus nemo ipsa nostrum iure porro minima
-            quidem non adipisci tenetur dignissimos sit sequi possimus corrupti
-            fugit dolorum.
-          </p>
-        </article>
-      </SwiperSlide>
-    );
-    depoimentosComponents.push(depoimento);
+  const [btnDisable, setBtnDisable] = useState(true);
+  const depoimentosComponents = depoimentosDATA.map(
+    ({ nome, imagem, mensagens }) => {
+      return (
+        <SwiperSlide key={nome} tag="li">
+          <article className="depoimento">
+            <header>
+              <figure>
+                <img src={`${process.env.PUBLIC_URL}${imagem}`} alt={`Imagem da ${nome}`} title={`Imagem da ${nome}`} />
+              </figure>
+            </header>
+            <blockquote>
+              {mensagens.map((mensagem) => (
+                <p>{mensagem}</p>
+              ))}
+            </blockquote>
+          </article>
+        </SwiperSlide>
+      );
+    }
+  );
+  function handleSlideChange ({activeIndex}) {
+    console.log(activeIndex)
+    if (activeIndex === (depoimentosComponents.length -1)){
+      setBtnDisable(false);
+    }
   }
 
   return (
-    <section className="depoimentos">
-      <header>
-        <h1>Uma Breve mensagem de seus amigos...</h1>
-      </header>
-      <Swiper
-        spaceBetween={50}
-        slidesPerView={1}
-        tag="section"
-        wrapperTag="ul"
-        navigation
-        pagination
-        virtual
-        onSlideChange={(swiper) => console.log(swiper)}
-        onSwiper={(swiper) => console.log(swiper)}
-      >
-        {depoimentosComponents}
-      </Swiper>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/jogo">
-              Continuar
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </section>
+    <>
+      <main className="content">
+        <section className="depoimentos">
+          <header>
+            <h1 className="title">Uma Breve mensagem de seus amigos...</h1>
+          </header>
+          <Swiper
+            spaceBetween={50}
+            slidesPerView={1}
+            tag="section"
+            wrapperTag="ul"
+            navigation
+            pagination
+            virtual
+            onSlideChange={handleSlideChange}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            {depoimentosComponents}
+          </Swiper>
+        </section>
+      </main>
+        <Footer isDisable={btnDisable} to="/jogo"/>
+    </>
   );
 };
 

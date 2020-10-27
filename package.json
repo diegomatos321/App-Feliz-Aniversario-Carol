@@ -2,15 +2,18 @@
   "name": "app-feliz-aniversario",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://devdiegomatos.com.br/feliz-aniversario/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-dom-confetti": "^0.2.0",
     "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-slide-routes": "^0.13.0",
     "swiper": "^6.3.4",
     "web-vitals": "^0.2.4"
   },

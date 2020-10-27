@@ -1,49 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
-import BlankAvatar from "../images/blank-avatar.png";
-import {Link} from "react-router-dom";
+// import BlankAvatar from "../images/blank-avatar.webp";
+import BoasVindas from "../components/BoasVindasModal.jsx";
+import Confetti from "../components/confetti.jsx";
+import "../css/felizAniversario.css";
+import Footer from "../components/Footer.jsx";
 
 const FelizAniversario = () => {
+  const [showConfetti, setShowConfetti] = useState([false]);
+  useEffect(() => {
+    setTimeout(setShowConfetti(false), 1000);
+  }, [showConfetti]);
+
   return (
     <>
-      <section className="feliz-aniversario">
-        <header>
-          <h1 className="title">
-            <span className="yellow">Feliz</span> Aniversario !
-          </h1>
-        </header>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-          pariatur dolorem eligendi veritatis eaque fugiat molestias eveniet est
-          optio consequatur ipsam quaerat laboriosam totam iusto ratione
-          voluptate, fugit amet, iure culpa? Maxime, dolorum veritatis. Ipsam
-          similique sapiente beatae harum natus soluta, sunt at nulla aperiam
-          eius amet ut, illo distinctio.
-        </p>
-      </section>
-      <footer>
-        <h2>
-          Desenvolvido por:{" "}
-          <span>
-            <img src={BlankAvatar} width="32px" alt="Diego Matos" />
-          </span>
-        </h2>
-        <p>Saiba mais em: </p>
-        <a
-          href="https://devdiegomatos.com.br"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          <i>https://devdiegomatos.com.br</i>
-        </a>
-      </footer>
-      <nav className="navegation">
-        <ul>
-          <li>
-            <Link to="depoimentos">Continuar</Link>
-          </li>
-        </ul>
-      </nav>
+      <main className="content">
+        <BoasVindas />
+        <section className="feliz-aniversario">
+          <header>
+            <h1 className="title" onClick={() => setShowConfetti(true)}>
+              <span className="red">Feliz</span> Aniversario !
+            </h1>
+            <Confetti active={showConfetti} />
+          </header>
+          <div className="principal">
+            <p>
+              Oi Carol, como vai ? Aqui é o Diego e, como sempre, desejo-lhe
+              muita <strong>saúde</strong>, <strong>paz</strong> e{" "}
+              <strong>felicidades</strong> !! Que esse dia seja muito especial
+              para você.
+            </p>
+            <p>
+              Bem, preciso nem dizer que por causa da pandemia que estamos
+              vivendo, não poderemos nos encontrar, então, nós (especificamente
+              a Gabi), decidimos fazer algo mais diferenciável para voce, espero
+              que goste !
+            </p>
+            <p>
+              Continue avançando que voce terá mais algumas surpresa até o final
+              desse app
+            </p>
+          </div>
+        </section>
+      </main>
+      <Footer isDisable={false} to="/depoimentos" />
     </>
   );
 };
