@@ -8,7 +8,7 @@ const Navigation = ({ isDisable, to }) => {
       <nav className="navigation">
         <ul>
           <li className={classe}>
-            <Link to={`${process.env.PUBLIC_URL}${to}`}>Continuar</Link>
+            <Link to={to}>Continuar</Link>
           </li>
         </ul>
       </nav>

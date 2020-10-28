@@ -213,7 +213,7 @@ blockquote p {
   font-family: 'Dancing Script', cursive;
   text-align: center;
   font-style: bold;
-  font-size: 1.6rem;
+  font-size: 2rem;
 }
 
 .title .red {
@@ -222,7 +222,7 @@ blockquote p {
 
 .subtitle {
   font-style: italic;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .subtitle .emoji {
@@ -321,16 +321,17 @@ blockquote p {
 
 .video-modal {
   position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+.video-modal iframe {
+  width: 100%;
 }
 
 .video-modal .close {
   position: absolute;
   right: 0;
-}
-
-.video-modal img {
-  width: 100%;
-  margin: auto;
 }
 
 .slide-routes {

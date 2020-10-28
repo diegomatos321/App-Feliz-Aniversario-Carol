@@ -16,6 +16,7 @@ const config = {
 };
 
 const ConfettiComponent = ({ active }) => {
+
   return (
     <div className="confetti">
       <Confetti active={active} config={config} />

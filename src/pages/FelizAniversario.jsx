@@ -5,12 +5,22 @@ import BoasVindas from "../components/BoasVindasModal.jsx";
 import Confetti from "../components/confetti.jsx";
 import "../css/felizAniversario.css";
 import Footer from "../components/Footer.jsx";
+import useAudio from "../utils/useAudio.js";
 
 const FelizAniversario = () => {
-  const [showConfetti, setShowConfetti] = useState([false]);
+  const [showConfetti, setShowConfetti] = useState(false);
   useEffect(() => {
     setTimeout(setShowConfetti(false), 1000);
   }, [showConfetti]);
+  const [playing, setPlaying] = useAudio({
+    src: `${process.env.PUBLIC_URL}/audio/confetti-pop-sound-effect.mp3`,
+    volume: 1
+  });
+
+  function handleConffetiClick() {
+    setPlaying(true);
+    setShowConfetti(true);
+  }
 
   return (
     <>
@@ -18,7 +28,7 @@ const FelizAniversario = () => {
         <BoasVindas />
         <section className="feliz-aniversario">
           <header>
-            <h1 className="title" onClick={() => setShowConfetti(true)}>
+            <h1 className="title" onClick={() => handleConffetiClick()}>
               <span className="red">Feliz</span> Aniversario !
             </h1>
             <Confetti active={showConfetti} />

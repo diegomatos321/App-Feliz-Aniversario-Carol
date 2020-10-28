@@ -23,43 +23,47 @@ const JogoDaMemoria = () => {
   }, [hasShuffle]);
 
   useEffect(() => {
-    cartasSelecionadas.forEach((carta, index) => {
-      if (isOdd(index)) return;
+    let index = cartasSelecionadas.length - 1;
+    let pares = [cartasSelecionadas[index - 1], cartasSelecionadas[index]];
 
-      let pares = [carta, cartasSelecionadas[index + 1]];
-      if (pares[1] === undefined) return;
-      if (pares[1] === carta || cartasCorretas.indexOf(carta) >= 0 || cartasCorretas.indexOf(pares[1]) >= 0) {
+    if (isEven(index) || pares[0] === undefined || pares[1] === undefined) return
+    if (cartasCorretas.indexOf(pares[0]) >= 0 || cartasCorretas.indexOf(pares[1]) >= 0 || pares[0] === pares[1]) {
+      definirCartasSelecionadas((currentState) =>
+        currentState.filter((carta) => pares.indexOf(carta) === -1)
+      );
+      return;
+    }
+
+    setTimeout(() => {
+      let nomesTratados = pares.map((par) => {
+        return par.split(" ")[0];
+      });
+      if (nomesTratados[0] === nomesTratados[1]) {
+        definirCartasSelecionadas((currentState) =>
+        currentState.filter((carta) => pares.indexOf(carta) === -1)
+      );
+        definirCartasCorretas((curentState) => [
+          ...curentState,
+          pares[0],
+          pares[1],
+        ]);
+      } else {
         definirCartasSelecionadas((currentState) =>
           currentState.filter((carta) => pares.indexOf(carta) === -1)
         );
-        return;
       }
-
-      setTimeout(() => {
-        let nomesTratados = pares.map((par) => {
-          return par.split(" ")[0];
-        });
-        if (nomesTratados[0] === nomesTratados[1]) {
-          definirCartasCorretas((curentState) => [
-            ...curentState,
-            pares[0],
-            pares[1],
-          ]);
-          definirCartasSelecionadas((currentState) =>
-            currentState.filter((carta) => pares.indexOf(carta) === -1)
-          );
-        } else {
-          definirCartasSelecionadas((currentState) =>
-            currentState.filter((carta) => pares.indexOf(carta) === -1)
-          );
-        }
       }, flipAnimationTime);
-    });
   }, [cartasSelecionadas]);
 
   useEffect(() => {
+    let filtro = cartasCorretas.filter((carta, index) => cartasCorretas.indexOf(carta) === index)
+
+    if (filtro.length != cartasCorretas.length) {
+      definirCartasCorretas(filtro);
+      return
+    }
+
     if (cartasCorretas.length === posicaoCartasDoJogo.length) {
-      console.log("Show Modal");
       setShowModal(true);
     }
   }, [cartasCorretas]);
@@ -67,6 +71,11 @@ const JogoDaMemoria = () => {
   function isOdd(n) {
     return Math.abs(n % 2) == 1;
   }
+
+  function isEven(n) {
+   return Math.abs(n % 2) == 0
+  }
+
   function shuffle(array) {
     var currentIndex = array.length,
       temporaryValue,

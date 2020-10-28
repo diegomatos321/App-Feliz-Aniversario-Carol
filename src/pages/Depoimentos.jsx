@@ -24,7 +24,7 @@ const Depoimentos = () => {
           <article className="depoimento">
             <header>
               <figure>
-                <img src={`${process.env.PUBLIC_URL}${imagem}`} alt={`Imagem da ${nome}`} title={`Imagem da ${nome}`} />
+                <img src={`${process.env.PUBLIC_URL}${imagem}`} alt={`Imagem de ${nome}`} title={`Imagem de ${nome}`} />
               </figure>
             </header>
             <blockquote>
@@ -38,7 +38,6 @@ const Depoimentos = () => {
     }
   );
   function handleSlideChange ({activeIndex}) {
-    console.log(activeIndex)
     if (activeIndex === (depoimentosComponents.length -1)){
       setBtnDisable(false);
     }
@@ -60,7 +59,6 @@ const Depoimentos = () => {
             pagination
             virtual
             onSlideChange={handleSlideChange}
-            onSwiper={(swiper) => console.log(swiper)}
           >
             {depoimentosComponents}
           </Swiper>

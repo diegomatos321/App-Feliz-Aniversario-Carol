@@ -14,7 +14,8 @@ const VideoModal = ({ show, onClose }) => {
         <div className="close" onClick={() => onClose()}>
           <FaTimesCircle />
         </div>
-        <img src={VideoPlaceHolder} alt="" />
+          <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/C4LM4VTfFOY" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        {/* <img src={VideoPlaceHolder} alt="" /> */}
       </div>
     </div>,
     document.getElementById("portal")

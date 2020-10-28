@@ -1,24 +1,37 @@
 import React, { useState, useEffect } from "react";
 
-const useAudio = url => {
-  const [audio] = useState(new Audio(`${process.env.PUBLIC_URL}${url}`));
+const useAudio = (config) => {
+  const [audio, setAudio] = useState(new Audio());
+  const [hasConfig, setHasConfig] = useState(false);
   const [playing, setPlaying] = useState(false);
 
   const toggle = (novoEstado) => setPlaying(novoEstado);
 
   useEffect(() => {
-      console.log(playing)
+    if (audio.readyState === 4) {
       playing ? audio.play() : audio.pause();
-    },
-    [playing]
-  );
+    }
+  }, [playing]);
 
   useEffect(() => {
-    audio.addEventListener('ended', () => setPlaying(false));
+    let audioObj = audio;
+    for (const propriedade in config) {
+      if (config.hasOwnProperty(propriedade)) {
+        const valor = config[propriedade];
+        audioObj[propriedade] = valor;
+      }
+    }
+    setAudio(audioObj);
+  }, [hasConfig]);
+
+  useEffect(() => {
+    audio.addEventListener("ended", () => setPlaying(false));
     return () => {
-      audio.removeEventListener('ended', () => setPlaying(false));
+      audio.removeEventListener("ended", () => setPlaying(false));
     };
   }, []);
+
+  if (!hasConfig) setHasConfig(true);
 
   return [playing, toggle];
 };

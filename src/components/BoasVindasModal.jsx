@@ -3,7 +3,7 @@ import ReactDom from "react-dom";
 
 import imgPresente from "../images/presente.webp";
 import "../css/modal.css";
-import useAudio from "../utils/useAudio.js"
+import useAudio from "../utils/useAudio.js";
 import Confetti from "./confetti.jsx";
 
 const BoasVindas = () => {
@@ -12,17 +12,18 @@ const BoasVindas = () => {
   useEffect(() => {
     setTimeout(setShowConfetti(false), 1000);
   }, [showConfetti]);
-  const [playing, setPlaying] = useAudio("/audio/confetti-pop-sound-effect.mp3");
+  const [playing, setPlaying] = useAudio({
+    src: `${process.env.PUBLIC_URL}/audio/confetti-pop-sound-effect.mp3`,
+    volume: 1
+  });
 
-  function handleClick(){
+  function handleClick() {
     setPlaying(true);
     setShowConfetti(true);
     setShowModal(false);
   }
 
-  let classe = showModal
-    ? "modal"
-    : "modal disappear";
+  let classe = showModal ? "modal" : "modal disappear";
 
   return ReactDom.createPortal(
     <section className={classe}>
