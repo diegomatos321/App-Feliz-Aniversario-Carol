@@ -1,3 +1,4 @@
+/* GLOBAL */
 :root {
   --corTema: #cc0303;
   --corPrimaria: whitesmoke;
@@ -12,12 +13,43 @@
 
 body {
   margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   font-display: swap;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* GERAL END */
+
+/* TIPOGRAFIA */
+
+.title{
+  font-family: 'Dancing Script', cursive;
+  text-align: center;
+  font-style: bold;
+  font-size: 2rem;
+}
+
+.subtitle {
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
+.title .red {
+  color: var(--corTema);
+}
+
+.subtitle .emoji {
+  font-style: normal;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
 }
 
 code {
@@ -25,55 +57,31 @@ code {
     monospace;
 }
 
-ul {
-  list-style-type: none;
-}
+/* TIPOGRAFIA END */
+
+/* APP */
 
 .App {
+  /* display: grid; */
+  position: relative;
   background-color: var(--corPrimaria);
-  align-content: center;
+  /* justify-content: center; */
+  /* align-content: center; */
   min-height: 100vh;
-}
-
-.confetti {
-  position: absolute !important;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  z-index: 10;
-  margin-top: 10vh;
-  min-height: 10vh;
-  width: 100%;
-  padding: 1rem;
-  background-color: gold;
-  font-size: 0.8rem;
-}
-
-.footer-content {
-  max-width: 900px;
-  margin: auto;
-  justify-content: space-evenly;
-  row-gap: 8px;
+  overflow-x: hidden;
 }
 
 .content {
-  display: flex;
+  /* flex-direction: column; */
   padding: 1rem;
-  flex-direction: column;
-  max-width: 900px;
-  min-height: 80vh;
-  justify-content: center;
+  width: 100%;
   margin: auto;
+  max-width: 1200px;
 }
 
 .flex-box {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
 }
 
@@ -88,6 +96,7 @@ blockquote {
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
 }
+
 blockquote:before {
   color: #ccc;
   content: open-quote;
@@ -101,244 +110,12 @@ blockquote p {
   display: inline;
 }
 
-.navigation {
-  display: flex;
-  max-width: 600px;
-  align-items: center;
-  margin: auto;
-  justify-content: flex-end;
-  padding: 6px;
-  height: 8vh;
-}
-
-.navigation .button {
-  width: 80px;
-  height: 40px;
-  padding: 6px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  background-color: var(--corTema);
-  color: var(--corPrimaria);
-  border-radius: 50px;
-  transition: all 300ms ease-in-out;
-}
-
-.navigation .button:hover {
-  cursor: pointer;
-  background-color: #fd2b2b;
-}
-
-.navigation .button a {
-  text-decoration: none;
-  margin: auto;
-  color: inherit;
-}
-
-.swiper-wrapper {
-  min-height: 50vh;
-  align-items: center;
-}
-
-.depoimentos header {
-  margin-bottom: 1rem;
-}
-
-.depoimento {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  padding: 0 50px 40px 50px;
-  text-align: center;
-}
-
-.depoimento p {
-  font-size: 14px;
-}
-
-.depoimento img {
-  width: 64px;
-  border-radius: 20%;
-}
-
-.button.disable {
-  cursor: not-allowed;
-  pointer-events: none;
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
-}
-
-.modal {
-  background-color: black !important;
-  transition: opacity 1200ms ease-in-out;
-  opacity: 1;
-}
-
-.modal.disappear {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.boas-vindas-content {
-  display: grid;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
-  gap: 1rem;
-  color: white;
-}
-
-.boas-vindas-content header {
-  text-align: center;
-}
-
-.feliz-aniversario header {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-/* .content .feliz-aniversario {
-  min-height: calc(100vh - 20vh);
-  display: flex;
-  margin:auto;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 900px;
-  padding: 1rem;
-}
- */
-.title {
-  font-family: 'Dancing Script', cursive;
-  text-align: center;
-  font-style: bold;
-  font-size: 2rem;
-}
-
-.title .red {
-  color: var(--corTema);
-}
-
-.subtitle {
-  font-style: italic;
-  font-size: 1.2rem;
-}
-
-.subtitle .emoji {
-  font-style: normal;
-}
-
-.presente {
-  position: relative;
-}
-
-.principal p {
-  margin-bottom: 0.5rem;
-}
-
-.jogo {
-  display: grid;
-  height: 100%;
-  row-gap: 1rem;
-}
-
-.jogo header {
-  text-align: center;
-  margin: auto;
-}
-
-.tabuleiro {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
-}
-
-.carta {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 6px;
-  background-color: black;
-  cursor: pointer;
-  width: 100%;
-  height: 200px;
-  border: 3px solid var(--corSecundaria);
-  border-radius: 10px;
-  perspective: 1000px;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.carta.flip {
-  transform: rotateY(180deg);
-}
-
-.carta .back-face,
-.carta .front-face {
-  position: absolute;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-  pointer-events: none;
-}
-
-.carta .back-face img {
-  transform: translateX(-25%);
-}
-
-.back-face.hide {
-  opacity: 0;
-}
-
-.carta .front-face {
-  transform: rotateY(180deg);
-}
-
-.modal {
-  position: fixed;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 10;
-}
-
-.video-modal {
-  position: relative;
-  width: 100%;
-  margin: auto;
-}
-
-.video-modal iframe {
-  width: 100%;
-}
-
-.video-modal .close {
-  position: absolute;
-  right: 0;
-}
-
-.slide-routes {
-  display : initial !important;
-}
+/* APP END */
 
 @media only screen and (min-width: 768px) {
+  .slide-container {
+    width: 70%;
+  }
   .title {
     font-size: 3rem;
   }
@@ -350,7 +127,7 @@ blockquote p {
   p {
     font-size: 1.4rem;
   }
-
+  
   .navigation .button {
     width: 160px;
     height: 60px;

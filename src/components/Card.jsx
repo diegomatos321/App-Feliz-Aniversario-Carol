@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
-import interrocacao from "../images/interrogação.webp"
+import { useState, useEffect } from "react";
+import cartaPNG from "../images/carta.png"
+import cartaWebp from "../images/carta.webp"
+
+import "../css/card.css"
 
 const Card = ({
   id,
@@ -11,7 +14,7 @@ const Card = ({
   // const [cardName, setCardName] = useState[pessoa];
   const [isFlip, setFlip] = useState(false);
   useEffect(() => {
-    if (cartasSelecionadas.indexOf(id) >= 0 || cartasCorretas.indexOf(id) >= 0) {
+    if (cartasSelecionadas.indexOf(String(id)) >= 0 || cartasCorretas.indexOf(String(id)) >= 0) {
       setFlip(true);
       return;
     }
@@ -32,10 +35,16 @@ const Card = ({
   return (
     <div id={id} className={`carta ${classeIsFlip}`} onClick={(e) => handleClick(e.target)}>
       <div className={`back-face ${classeHide}`}>
-        <img src={interrocacao} height="100%" alt=""/>
+        <picture>
+          <source srcSet={cartaWebp} type="image/webp"/>
+          <img src={cartaPNG} height="100%" alt="Verso da Carta"/>
+        </picture>
       </div>
       <div className="front-face">
-        <img src={`${process.env.PUBLIC_URL}${imagem}`} height="100%" alt=""/>
+        <picture>
+          <source srcSet={`${process.env.PUBLIC_URL}${imagem}.webp`} type="image/webp"/>
+          <img src={`${process.env.PUBLIC_URL}${imagem}.png`} height="100%" alt="Frente da Carta"/>
+        </picture>
       </div>
     </div>
   );

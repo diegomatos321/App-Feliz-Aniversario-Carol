@@ -1,0 +1,16 @@
+/* DEPOIMENTOS */
+
+.depoimento {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  text-align: center;
+}
+
+.depoimento img {
+  width: 64px;
+  border-radius: 20%;
+}
+
+
+/* DEPOIMENTOS END */

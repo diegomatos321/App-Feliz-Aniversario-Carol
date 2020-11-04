@@ -1,43 +1,41 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
-// import BlankAvatar from "../images/blank-avatar.webp";
-import BoasVindas from "../components/BoasVindasModal.jsx";
-import Confetti from "../components/confetti.jsx";
+import Modal from "../components/Modal.jsx"
+import BoasVindas from "../components/BoasVindas.jsx";
+import ConfettiComponent from "../components/ConfettiComponent.jsx";
+
+import { AppContext } from "../utils/AppContext.js"
 import "../css/felizAniversario.css";
-import Footer from "../components/Footer.jsx";
-import useAudio from "../utils/useAudio.js";
 
 const FelizAniversario = () => {
-  const [showConfetti, setShowConfetti] = useState(false);
+  const [showModal, setShowModal] = useState(true);
+  const { setNextPage, setFooterEnable } = useContext(AppContext);
+
   useEffect(() => {
-    setTimeout(setShowConfetti(false), 1000);
-  }, [showConfetti]);
-  const [playing, setPlaying] = useAudio({
-    src: `${process.env.PUBLIC_URL}/audio/confetti-pop-sound-effect.mp3`,
-    volume: 1
-  });
-
-  function handleConffetiClick() {
-    setPlaying(true);
-    setShowConfetti(true);
-  }
-
+    setFooterEnable(true);
+    setNextPage("/depoimentos");
+  }, [])
+  
   return (
-    <>
       <main className="content">
-        <BoasVindas />
+        <Modal 
+        showModal={showModal}
+        setShowModal={setShowModal}
+        >
+         <BoasVindas setShowModal={setShowModal}/>
+        </Modal>
         <section className="feliz-aniversario">
           <header>
-            <h1 className="title" onClick={() => handleConffetiClick()}>
-              <span className="red">Feliz</span> Aniversario !
-            </h1>
-            <Confetti active={showConfetti} />
+            <ConfettiComponent>
+              <h1 className="title">
+                <span className="red">Feliz</span> Aniversario !
+              </h1>
+            </ConfettiComponent>
           </header>
           <div className="principal">
             <p>
               Oi Carol, como vai ? Aqui é o Diego e, como sempre, desejo-lhe
-              muita <strong>saúde</strong>, <strong>paz</strong> e{" "}
-              <strong>felicidades</strong> !! Que esse dia seja muito especial
+              muita <strong>saúde</strong>, <strong>paz</strong> e <strong>felicidades</strong> !! Que esse dia seja muito especial
               para você.
             </p>
             <p>
@@ -48,13 +46,11 @@ const FelizAniversario = () => {
             </p>
             <p>
               Continue avançando que voce terá mais algumas surpresa até o final
-              desse app
+              desse app.
             </p>
           </div>
         </section>
       </main>
-      <Footer isDisable={false} to="/depoimentos" />
-    </>
   );
 };
 

@@ -1,71 +1,60 @@
-import React, { useState, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, {
-  Navigation,
-  Pagination,
-  Virtual,
-  EffectFade,
-} from "swiper";
-
-import "../css/depoimentos.css";
-import "swiper/swiper-bundle.css";
+import { useState, useContext, useEffect } from "react";
 
 import depoimentosDATA from "../depoimentos.json";
-import Footer from "../components/Footer.jsx";
+import Slider from "../components/Slider.jsx";
+import {AppContext} from "../utils/AppContext.js"
 
-SwiperCore.use([Navigation, Pagination, Virtual, EffectFade]);
+import "../css/depoimentos.css"
 
 const Depoimentos = () => {
-  const [btnDisable, setBtnDisable] = useState(true);
-  const depoimentosComponents = depoimentosDATA.map(
-    ({ nome, imagem, mensagens }) => {
-      return (
-        <SwiperSlide key={nome} tag="li">
-          <article className="depoimento">
-            <header>
-              <figure>
-                <img src={`${process.env.PUBLIC_URL}${imagem}`} alt={`Imagem de ${nome}`} title={`Imagem de ${nome}`} />
-              </figure>
-            </header>
-            <blockquote>
-              {mensagens.map((mensagem) => (
-                <p>{mensagem}</p>
-              ))}
-            </blockquote>
-          </article>
-        </SwiperSlide>
-      );
-    }
-  );
-  function handleSlideChange ({activeIndex}) {
-    if (activeIndex === (depoimentosComponents.length -1)){
-      setBtnDisable(false);
-    }
+  const [depoimentos] = useState(depoimentosDATA);
+
+  const {setFooterEnable, setNextPage} = useContext(AppContext)
+  useEffect(() => {
+    setFooterEnable(false);
+    setNextPage("/jogo");
+  }, [])
+
+  function handleSlideEnd(){
+    setFooterEnable(true);
   }
 
+  const depoimentosComponents = depoimentos.map(({ nome, imagem, mensagens }) => {
+    return (
+    <article key={nome} className="depoimento">
+      <header>
+        <picture>
+          <source srcSet={`${process.env.PUBLIC_URL}${imagem}.webp`} type="image/webp"/>
+          <img
+            src={`${process.env.PUBLIC_URL}${imagem}.png`}
+            width="200px"
+            alt={`Imagem de ${nome}`}
+            title={`Imagem de ${nome}`}
+          />
+        </picture>
+      </header>
+      <blockquote>
+        {mensagens.map((mensagem, i) => (
+          <p key={`Mensagem de ${nome} ${i}`}>{mensagem}</p>
+        ))}
+      </blockquote>
+    </article>
+    )
+  })
+
   return (
-    <>
       <main className="content">
         <section className="depoimentos">
           <header>
             <h1 className="title">Uma Breve mensagem de seus amigos...</h1>
           </header>
-          <Swiper
-            spaceBetween={50}
-            slidesPerView={1}
-            tag="section"
-            wrapperTag="ul"
-            navigation
-            pagination
-            virtual
-            onSlideChange={handleSlideChange}
+          <Slider
+            onEnd={handleSlideEnd}
           >
             {depoimentosComponents}
-          </Swiper>
+          </Slider>
         </section>
       </main>
-        <Footer isDisable={btnDisable} to="/jogo"/>
-    </>
   );
 };
 

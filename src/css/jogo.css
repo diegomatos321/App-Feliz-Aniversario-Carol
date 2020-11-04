@@ -1,0 +1,23 @@
+/* JOGO */
+
+.jogo {
+  display: grid;
+  height: 100%;
+  row-gap: 1rem;
+}
+
+.jogo header {
+  text-align: center;
+  margin: auto;
+}
+
+.tabuleiro {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* JOGO END */

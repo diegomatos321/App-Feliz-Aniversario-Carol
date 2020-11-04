@@ -1,12 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
+import pessoas from "../cartas.json";
+
+import Card from "../components/Card.jsx";
+import Modal from "../components/Modal";
+import Video from "../components/Video.jsx";
+
+import {AppContext} from "../utils/AppContext.js"
 
 import "../css/jogo.css";
-import Card from "../components/Card.jsx";
-import VideoModal from "../components/VideoModal.jsx";
-
-import pessoas from "../cartas.json"
 
 const JogoDaMemoria = () => {
+  const {setFooterEnable, setBackgroundMusicPlaying} = useContext(AppContext)
+  useEffect(() => {
+    setFooterEnable(false);
+  }, [])
+
   const [posicaoCartasDoJogo, definirPosicaoCartasDoJogo] = useState(pessoas);
   const [hasShuffle, setShuffle] = useState(false);
   const [cartasSelecionadas, definirCartasSelecionadas] = useState([]);
@@ -23,71 +32,94 @@ const JogoDaMemoria = () => {
   }, [hasShuffle]);
 
   useEffect(() => {
-    let index = cartasSelecionadas.length - 1;
-    let pares = [cartasSelecionadas[index - 1], cartasSelecionadas[index]];
+    if (cartasSelecionadas.length === 0) return;
 
-    if (isEven(index) || pares[0] === undefined || pares[1] === undefined) return
-    if (cartasCorretas.indexOf(pares[0]) >= 0 || cartasCorretas.indexOf(pares[1]) >= 0 || pares[0] === pares[1]) {
-      definirCartasSelecionadas((currentState) =>
-        currentState.filter((carta) => pares.indexOf(carta) === -1)
+    const quantidadeDeCartasSelecionadas = cartasSelecionadas.length - 1;
+    const pos1 = cartasSelecionadas[quantidadeDeCartasSelecionadas - 1];
+    const pos2 = cartasSelecionadas[quantidadeDeCartasSelecionadas];
+    const posicaoDasCartasSelecionadas = [pos1, pos2]
+
+    function encontrarNomeDaCartaBaseadoEmSuaPosicao (posicao) {
+      const {nome} = posicaoCartasDoJogo[posicao]
+      return nome
+    } 
+
+    if (
+      isEven(quantidadeDeCartasSelecionadas) ||
+      pos1 === undefined ||
+      pos2 === undefined
+    )
+      return;
+
+    if (cartasCorretas.indexOf(pos1) >= 0) {
+      definirCartasSelecionadas((cartasAtuais) =>
+        cartasAtuais.filter((cartaAtual) => cartaAtual !== pos1)
+      );
+      return;
+    }
+
+    if (cartasCorretas.indexOf(pos2) >= 0) {
+      definirCartasSelecionadas((cartasAtuais) =>
+        cartasAtuais.filter((cartaAtual) => cartaAtual !== pos2)
+      );
+      return;
+    }
+
+    if (pos1 === pos2) {
+      definirCartasSelecionadas((cartasAtuais) =>
+        cartasAtuais.filter((cartaAtual) => posicaoDasCartasSelecionadas.indexOf(cartaAtual) === -1)
       );
       return;
     }
 
     setTimeout(() => {
-      let nomesTratados = pares.map((par) => {
+      const nomePrimeiraCata = encontrarNomeDaCartaBaseadoEmSuaPosicao(pos1);
+      const nomeSegundaCata = encontrarNomeDaCartaBaseadoEmSuaPosicao(pos2);
+/*       let nomesTratados = pares.map((par) => {
         return par.split(" ")[0];
-      });
-      if (nomesTratados[0] === nomesTratados[1]) {
-        definirCartasSelecionadas((currentState) =>
-        currentState.filter((carta) => pares.indexOf(carta) === -1)
-      );
+      }); */
+      if (nomePrimeiraCata === nomeSegundaCata) {
+        definirCartasSelecionadas((cartasAtuais) =>
+          cartasAtuais.filter((cartaAtual) => posicaoDasCartasSelecionadas.indexOf(cartaAtual) === -1)
+        );
         definirCartasCorretas((curentState) => [
           ...curentState,
-          pares[0],
-          pares[1],
+          pos1,
+          pos2,
         ]);
       } else {
-        definirCartasSelecionadas((currentState) =>
-          currentState.filter((carta) => pares.indexOf(carta) === -1)
+        definirCartasSelecionadas((cartasAtuais) =>
+          cartasAtuais.filter((cartaAtual) => posicaoDasCartasSelecionadas.indexOf(cartaAtual) === -1)
         );
       }
-      }, flipAnimationTime);
+    }, flipAnimationTime);
   }, [cartasSelecionadas]);
 
   useEffect(() => {
-    let filtro = cartasCorretas.filter((carta, index) => cartasCorretas.indexOf(carta) === index)
+    let filtro = cartasCorretas.filter(
+      (carta, index) => cartasCorretas.indexOf(carta) === index
+    );
 
-    if (filtro.length != cartasCorretas.length) {
+    if (filtro.length !== cartasCorretas.length) {
       definirCartasCorretas(filtro);
-      return
+      return;
     }
 
     if (cartasCorretas.length === posicaoCartasDoJogo.length) {
       setShowModal(true);
+      setBackgroundMusicPlaying(false);
     }
   }, [cartasCorretas]);
 
-  function isOdd(n) {
-    return Math.abs(n % 2) == 1;
-  }
-
-  function isEven(n) {
-   return Math.abs(n % 2) == 0
-  }
-
   function shuffle(array) {
-    var currentIndex = array.length,
+    let currentIndex = array.length,
       temporaryValue,
       randomIndex;
 
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-      // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
 
-      // And swap it with the current element.
       temporaryValue = array[currentIndex];
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
@@ -96,14 +128,18 @@ const JogoDaMemoria = () => {
     return array;
   }
 
+  function isEven(n) {
+    return Math.abs(n % 2) === 0;
+  }
+
   if (!hasShuffle) {
     setShuffle(true);
   }
 
-  let cartasComponents = posicaoCartasDoJogo.map(({nome, imagem}, index) => (
+  let cartasComponents = posicaoCartasDoJogo.map(({ nome, imagem }, index) => (
     <Card
       key={`${nome} ${index}`}
-      id={`${nome} ${index}`}
+      id={index}
       imagem={imagem}
       cartasSelecionadas={cartasSelecionadas}
       cartasCorretas={cartasCorretas}
@@ -111,9 +147,14 @@ const JogoDaMemoria = () => {
     />
   ));
   return (
-    <main style={{minHeight:"100vh"}} className="content backgrond-red">
+    <main className="content">
       <section className="jogo">
-        <VideoModal show={showModal} onClose={() => setShowModal(false)} />
+        <Modal 
+        showModal={showModal} 
+        setShowModal={setShowModal}
+        hasCloseButton={true}>
+           <Video/>
+        </Modal>
         <header>
           <h1 className="title">Jogo dos Amigos !</h1>
           <p className="subtitle">

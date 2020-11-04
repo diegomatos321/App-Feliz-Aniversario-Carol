@@ -1,0 +1,41 @@
+/* FELIZ ANIVERSARIO */
+
+.boas-vindas-content {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+}
+
+.boas-vindas-content header {
+  text-align: center;
+}
+
+.feliz-aniversario header {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.presente {
+  position: relative;
+}
+
+.principal p {
+  margin-bottom: 0.5rem;
+}
+
+/* .content .feliz-aniversario {
+  min-height: calc(100vh - 20vh);
+  display: flex;
+  margin:auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  padding: 1rem;
+}
+ */
+
+/* FELIZ ANIVERSARIO END */

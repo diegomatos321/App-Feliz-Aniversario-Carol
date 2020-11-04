@@ -1,20 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch } from "react-router-dom";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import "./css/reset.css";
-import './index.css';
-import App from './App';
+import "./index.css";
+import App from "./App";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <div className="App">
-      <BrowserRouter basename="/feliz-aniversario">
-        <Switch>
-          <App />
-        </Switch>
-      </BrowserRouter>
-    </div>
-  </React.StrictMode>,
-  document.getElementById('root')
+  <div className="App">
+    <BrowserRouter basename="/feliz-aniversario">
+      <App />
+    </BrowserRouter>
+  </div>,
+  document.getElementById("root")
 );

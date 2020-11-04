@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const useAudio = (config) => {
   const [audio, setAudio] = useState(new Audio());
@@ -7,6 +7,13 @@ const useAudio = (config) => {
 
   const toggle = (novoEstado) => setPlaying(novoEstado);
 
+  useEffect(() => {
+    audio.addEventListener("ended", () => setPlaying(false));
+    return () => {
+      audio.removeEventListener("ended", () => setPlaying(false));
+    };
+  });
+  
   useEffect(() => {
     if (audio.readyState === 4) {
       playing ? audio.play() : audio.pause();
@@ -23,13 +30,6 @@ const useAudio = (config) => {
     }
     setAudio(audioObj);
   }, [hasConfig]);
-
-  useEffect(() => {
-    audio.addEventListener("ended", () => setPlaying(false));
-    return () => {
-      audio.removeEventListener("ended", () => setPlaying(false));
-    };
-  }, []);
 
   if (!hasConfig) setHasConfig(true);
 
