@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import Confetti from "react-dom-confetti";
-import useAudio from "../utils/useAudio.js"
+import useAudio from "../utils/useAudio.js";
+import ReactDom from "react-dom";
 
-import "../css/confetti.css"
+import "../css/confetti.css";
 
 const config = {
   angle: 90,
@@ -17,13 +18,14 @@ const config = {
   perspective: "500px",
   colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
 };
-const delayTimeMilisec = 1000; 
+const delayTimeMilisec = 1000;
 
-const ConfettiComponent = ({ classe="", children }) => {
+const ConfettiComponent = ({ classe = "", children }) => {
+  const [conffetiPos, setConffetiPos] = useState({x : 0, y : 0});
   const [showConffeti, setShowConffeti] = useState(false);
-  const [ , setConffetiAudioPlaying] = useAudio({
+  const [, setConffetiAudioPlaying] = useAudio({
     src: `${process.env.PUBLIC_URL}/audio/confetti-pop-sound-effect.mp3`,
-    volume: 1
+    volume: 1,
   });
 
   useEffect(() => {
@@ -32,22 +34,37 @@ const ConfettiComponent = ({ classe="", children }) => {
       setConffetiAudioPlaying(true);
       timeOutID = setTimeout(() => {
         setShowConffeti(false);
-      }, delayTimeMilisec)
+      }, delayTimeMilisec);
     } else {
       setConffetiAudioPlaying(false);
     }
     return () => {
-      clearTimeout(timeOutID)
-    }
-  }, [showConffeti])
+      clearTimeout(timeOutID);
+    };
+  }, [showConffeti]);
+
+  function handleClick(e){
+    console.log(e)
+    const {clientX, clientY} = e;
+    setConffetiPos({x : clientX, y : clientY})
+    setShowConffeti(true)
+  }
 
   return (
-    <div className={`confetti-container ${classe}`} onClick={() => setShowConffeti(true)}>
-      <div className="confetti-effect">
-        <Confetti active={showConffeti} config={config} />
+    <>
+      <div
+        className={`confetti-container ${classe}`}
+        onClick={(e) => handleClick(e)}
+      >
+        {children}
       </div>
-      {children}
-    </div>
+      {ReactDom.createPortal(
+        <div className="confetti-effect" style={{left: conffetiPos.x, top: conffetiPos.y}}>
+          <Confetti active={showConffeti} config={config} />
+        </div>,
+        document.getElementById("portal")
+      )}
+    </>
   );
 };
 

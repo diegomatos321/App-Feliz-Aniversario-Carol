@@ -64,7 +64,7 @@ const Slider = ({ onEnd, children }) => {
   }
 
   function handleGestureStart(event) {
-    event.preventDefault();
+    // event.preventDefault();
     console.log("pointerdown")
 
     setTouchState("touchstart");
@@ -73,18 +73,18 @@ const Slider = ({ onEnd, children }) => {
   }
 
   function handleGestureMove(event) {
-    event.preventDefault();
+    // event.preventDefault();
     setTouchState("touchmove");
     handleGesture(event);
   }
 
   function handleGestureCancel(event) {
-    event.preventDefault();
+    // event.preventDefault();
     setTouchState("touchcancel");
   }
 
   function handleGestureEnd(event) {
-    event.preventDefault();
+    // event.preventDefault();
     setTouchState("touchend");
   }
 
@@ -106,6 +106,7 @@ const Slider = ({ onEnd, children }) => {
   }, [touchState])
 
   function handleSlideChange(trocarSlide) {
+    console.log("Slide Change")
     if (trocarSlide === "posterior" && slideAtual < children.length - 1) {
       definirSlideAtual(slideAtual + 1);
     } else if (trocarSlide === "anterior" && slideAtual > 0) {

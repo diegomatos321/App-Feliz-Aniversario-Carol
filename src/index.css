@@ -62,13 +62,13 @@ code {
 /* APP */
 
 .App {
-  display: grid;
+  /* display: grid; */
   position: relative;
   background-color: var(--corPrimaria);
   /* justify-content: center; */
-  align-content: center;
+  /* align-content: center; */
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .content {
@@ -116,6 +116,10 @@ blockquote p {
   transform: initial !important;
 }
 
+.slide-routes .next-enter {
+  z-index: 5;
+}
+
 /* APP END */
 
 @media only screen and (min-width: 768px) {
@@ -139,7 +143,7 @@ blockquote p {
     height: 60px;
     font-size: 1.4rem;
   }
-  .depoimento {
+  /* .depoimento {
     grid-template-columns: 1fr 3fr;
   }
 
@@ -149,5 +153,5 @@ blockquote p {
 
   .depoimento img {
     width: 60%;
-  }
+  } */
 }

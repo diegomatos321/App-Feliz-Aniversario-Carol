@@ -35,7 +35,7 @@ const Depoimentos = () => {
       </header>
       <blockquote>
         {mensagens.map((mensagem, i) => (
-          <p key={`Mensagem de ${nome} ${i}`}>{mensagem}</p>
+          <p key={`Mensagem de ${nome} ${i}`}>{` ${mensagem}`}</p>
         ))}
       </blockquote>
     </article>
