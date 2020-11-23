@@ -1,3 +1,4 @@
+import { StrictMode } from 'react';
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 
@@ -7,9 +8,11 @@ import App from "./App";
 
 ReactDOM.render(
   <div className="App">
-    <BrowserRouter basename="/feliz-aniversario">
-      <App />
-    </BrowserRouter>
+    <StrictMode>
+      <BrowserRouter basename="/feliz-aniversario">
+        <App />
+      </BrowserRouter>
+    </StrictMode>
   </div>,
   document.getElementById("root")
 );

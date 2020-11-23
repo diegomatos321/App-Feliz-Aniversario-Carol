@@ -62,11 +62,11 @@ code {
 /* APP */
 
 .App {
-  /* display: grid; */
+  display: grid;
   position: relative;
   background-color: var(--corPrimaria);
   /* justify-content: center; */
-  /* align-content: center; */
+  align-content: center;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -106,8 +106,14 @@ blockquote:before {
   margin-right: 0.25em;
   vertical-align: -0.4em;
 }
+
 blockquote p {
   display: inline;
+}
+
+.slide {
+  opacity: 1 !important;
+  transform: initial !important;
 }
 
 /* APP END */
@@ -133,7 +139,6 @@ blockquote p {
     height: 60px;
     font-size: 1.4rem;
   }
-
   .depoimento {
     grid-template-columns: 1fr 3fr;
   }

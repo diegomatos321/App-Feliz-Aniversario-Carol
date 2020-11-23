@@ -6,28 +6,34 @@ export default function usePageDirection() {
   const [pageDirection, setPageDirection] = useState("forward");
 
   const history = useHistory();
-  
+ 
   useEffect(() => {
      return history.listen((location) => {
       if (history.action === "PUSH") {
         setLocationKeys([ location.key ])
-        location.state = { slideAnimation: "slider-router-from-right"}
         setPageDirection("forward");
       }
 
       if (history.action === "POP") {
         if (locationKeys[1] === location.key) {
           setLocationKeys(([ _, ...keys ]) => keys)
-          location.state = { slideAnimation: "slider-router-from-right"}
           setPageDirection("forward")
         } else {
           setLocationKeys((keys) => [ location.key , ...keys ])
-          location.state = { slideAnimation: "slider-router-from-left"}
           setPageDirection("backwards")
         }
       }
     });
   }, [locationKeys]);
+
+  useEffect(() => {
+    // console.log(pageDirection)
+    if (pageDirection === "forward"){
+      sessionStorage.setItem('react-router-slider-page-animation', 'from-right');
+    } else if (pageDirection === "backwards") {
+      sessionStorage.setItem('react-router-slider-page-animation', 'from-left');
+    }
+  }, [pageDirection])
 
   return pageDirection
 }

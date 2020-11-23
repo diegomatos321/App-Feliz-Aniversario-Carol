@@ -16,7 +16,7 @@
   transition: transform 400ms ease-in-out;
 }
 
-.slide {
+.slider {
   min-width: 100%;
   padding: 40px;
   opacity: 0.3;
@@ -24,7 +24,7 @@
   transition: all 400ms ease-in;
 }
 
-.slide.active {
+.slider.active {
   opacity: 1;
   transform: scale(1);
 }

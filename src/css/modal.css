@@ -2,9 +2,6 @@
 
 .modal-container {
   position: fixed;
-  display: grid;
-  justify-content: center;
-  align-items: center;
   width: 100vw;
   height: 100vh;
   top: 50%;
@@ -14,19 +11,6 @@
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 10;
-}
-
-.modal-wrapper {
-  position: relative;
-}
-
-.modal-wrapper .close {
-  position: absolute;
-  right: 0;
-  transform: translate(100%, -100%);
-  color: var(--corPrimaria);
-  font-size: 2rem;
-  cursor: pointer;
 }
 
 .modal-container.hidden {
@@ -50,14 +34,23 @@
   pointer-events: none;
 }
 
-.video {
+.modal-wrapper {
   position: relative;
-  width: 100%;
-  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.video iframe {
-  width: 100%;
+.modal-wrapper .close {
+  position: absolute;
+  right: 0;
+  color: var(--corPrimaria);
+  font-size: 2rem;
+  cursor: pointer;
 }
 
+.video-container {
+}
+.video-container iframe {
+  width: 100%;
+}
 /* MODAL END */

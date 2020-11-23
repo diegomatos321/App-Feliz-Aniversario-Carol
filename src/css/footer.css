@@ -49,9 +49,10 @@ footer {
   transition: all 300ms ease-in-out;
 }
 
-.navigation .button:hover {
+.navigation .button:hover, .navigation .button:focus, .navigation .button:active {
   cursor: pointer;
   background-color: #fd2b2b;
+  outline: 0;
 }
 
 .navigation .button:disabled {
