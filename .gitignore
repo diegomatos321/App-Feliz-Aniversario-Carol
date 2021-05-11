@@ -25,5 +25,6 @@ yarn-error.log*
 /public/imagens
 /src/depoimentos.json
 /src/cartas.json
+/MIDIA Surpresa Carol
 *.rar
 *.zip
